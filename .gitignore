@@ -1,0 +1,9 @@
+.DS_Store
+/frames
+/models-cunet
+/models-upconv_7_anime_style_art_rgb
+/models-upconv_7_photo
+/scaled
+/video
+waifu2x-ncnn-vulkan
+/waifu2x
