@@ -19,6 +19,7 @@ print_usage() {
 # Defaults
 SCALE=2
 QUALITY="high"
+NOISE=2
 SKIP_FRAMES=false
 NO_AUDIO=false
 
@@ -37,6 +38,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     -q|--quality)
       QUALITY="$2"
+      shift 2
+      ;;
+    -n|--noise)
+      NOISE="$2"
       shift 2
       ;;
     --skip-frames)
@@ -75,6 +80,11 @@ fi
 
 if ! [[ "$SCALE" =~ ^(1|2|4|8|16|32)$ ]]; then
   echo "❌ Error: Scale must be one of 1, 2, 4, 8, 16, or 32"
+  exit 1
+fi
+
+if ! [[ "$NOISE" =~ ^(-1|0|1|2|3)$ ]]; then
+  echo "❌ Error: Noise must be one of -1, 0, 1, 2, or 3"
   exit 1
 fi
 
@@ -145,7 +155,7 @@ if ! $SKIP_FRAMES; then
   fi
 
   echo "✨ Upscaling frames using: -j $WAIFU_THREADS"
-  ./waifu2x/waifu2x-ncnn-vulkan -i frames/ -o scaled/ -n 2 -s "$SCALE" -j "$WAIFU_THREADS"
+  ./waifu2x/waifu2x-ncnn-vulkan -i frames/ -o scaled/ -n "$NOISE" -s "$SCALE" -j "$WAIFU_THREADS"
 fi
 
 echo "🎬 Reassembling video..."

@@ -66,6 +66,7 @@ xattr -dr com.apple.quarantine waifu2x-ncnn-vulkan*
 | `-i`, `--input`   | Path to the input video file                                                               | **Required**            |
 | `-s`, `--scale`   | Scale factor (1, 2, 4, 8, 16, 32)                                                          | `2`                     |
 | `-q`, `--quality` | Encoding quality: `high`, `medium`, `low`                                                  | `high`                  |
+| `-n`, `--noise`   | Denoise Level: `-1/0/1/2/3`                                                                | `2`                     |
 | `--skip-frames`   | Skip frame extraction/upscaling (just re-encode with audio pre-existing frames)            | `false`                 |
 | `--no-audio`      | Skip audio extraction & remux (video only)                                                 | `false`                 |
 | `-o`, `--output`  | Output file path                                                                           | `video/<input>_upscaled.mp4` |
@@ -73,7 +74,7 @@ xattr -dr com.apple.quarantine waifu2x-ncnn-vulkan*
 ### 🧪 Example
 
 ```bash
-./upscale_video.sh -i input.mp4 -s 2 -q medium --output 4k-output.mp4
+./upscale_video.sh -i input.mp4 -s 2 -q medium -n 0 --output 4k-output.mp4
 ```
 
 ---
