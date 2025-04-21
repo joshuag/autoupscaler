@@ -67,6 +67,7 @@ xattr -dr com.apple.quarantine waifu2x-ncnn-vulkan*
 | `-s`, `--scale`   | Scale factor (1, 2, 4, 8, 16, 32)                                                          | `2`                     |
 | `-q`, `--quality` | Encoding quality: `high`, `medium`, `low`                                                  | `high`                  |
 | `-n`, `--noise`   | Denoise Level: `-1/0/1/2/3`                                                                | `2`                     |
+| `-m`, `--model`   | Model Type: `photo`, `anime`, `2d`                                                         | `photo`                 |
 | `--skip-frames`   | Skip frame extraction/upscaling (just re-encode with audio pre-existing frames)            | `false`                 |
 | `--no-audio`      | Skip audio extraction & remux (video only)                                                 | `false`                 |
 | `-o`, `--output`  | Output file path                                                                           | `video/<input>_upscaled.mp4` |
@@ -82,6 +83,7 @@ xattr -dr com.apple.quarantine waifu2x-ncnn-vulkan*
 
 ## 📝 Notes
 
+- Photo is better for normal DVD movies, anime for animes, and 2d is a good all-around fallback if the first two don't give the results you want.
 - Upscaling is GPU and memory-intensive. The script auto-tunes performance based on your CPU/GPU.
 - Apple Silicon support via [MoltenVK](https://github.com/KhronosGroup/MoltenVK) is automatically used under-the-hood.
 - Audio codec is preserved via stream copy when possible (`-c:a copy`).

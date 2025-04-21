@@ -20,6 +20,7 @@ print_usage() {
 SCALE=2
 QUALITY="high"
 NOISE=2
+MODEL="photo"
 SKIP_FRAMES=false
 NO_AUDIO=false
 
@@ -42,6 +43,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     -n|--noise)
       NOISE="$2"
+      shift 2
+      ;;
+    -m|--model)
+      MODEL="$2"
       shift 2
       ;;
     --skip-frames)
@@ -87,6 +92,13 @@ if ! [[ "$NOISE" =~ ^(-1|0|1|2|3)$ ]]; then
   echo "❌ Error: Noise must be one of -1, 0, 1, 2, or 3"
   exit 1
 fi
+
+case "$MODEL" in
+  photo) MODEL_PATH=models-upconv_7_photo ;;
+  anime) MODEL_PATH=models-upconv_7_anime_style_art_rgb ;;
+  2d)    MODEL_PATH=models-cunet ;;
+  *) echo "❌ Error: Model must be 'photo', 'anime', or '2d'" ; exit 1 ;;
+esac
 
 case "$QUALITY" in
   high)   CRF=16 ;;
@@ -155,7 +167,7 @@ if ! $SKIP_FRAMES; then
   fi
 
   echo "✨ Upscaling frames using: -j $WAIFU_THREADS"
-  ./waifu2x/waifu2x-ncnn-vulkan -i frames/ -o scaled/ -n "$NOISE" -s "$SCALE" -j "$WAIFU_THREADS"
+  ./waifu2x/waifu2x-ncnn-vulkan -i frames/ -o scaled/ -n "$NOISE" -s "$SCALE" -j "$WAIFU_THREADS" -m "$MODEL_PATH"
 fi
 
 echo "🎬 Reassembling video..."
