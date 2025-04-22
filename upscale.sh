@@ -20,7 +20,7 @@ print_usage() {
 SCALE=2
 QUALITY="high"
 NOISE=2
-MODEL="photo"
+MODEL="2d"
 SKIP_FRAMES=false
 NO_AUDIO=false
 
